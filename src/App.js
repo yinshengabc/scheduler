@@ -28,6 +28,8 @@ export default App;
 */
 
 import React from 'react';//makes React available to the JavaScript
+import '../../node_modules/rbx/index.css';
+import{ Button, Container,Title } from 'rbx';
 
 const schedule = {
   "title": "CS Courses for 2018-2019",
@@ -58,7 +60,7 @@ const schedule = {
 const terms = { F: 'Fall', W: 'Winter', S:'Spring'};
 
 const Banner = ({title}) => (
-  <h1>{title}</h1>
+  <Title>{title}</Title>
 );
 
 const getCourseTerm = course => (
@@ -70,22 +72,22 @@ const getCourseNumber = course => (
 );
 
 const Course = ({course}) => (
-  <button>
+  <Button>
     { getCourseTerm(course)} CS { getCourseNumber(course)}: {course.title}
-  </button>
+  </Button>
 );
 
 const CourseList = ({courses}) => (
-  <div>
+  <Button.Group>
   { courses.map(course => <Course key={course.id} course={course}/>) }
-  </div>
+  </Button.Group>
 );
 
 const App = () =>  (
-  <div>
+  <Container>
     <Banner title={ schedule.title } />
     <CourseList courses={ schedule.courses } />
-  </div>
+  </Container>
 );
 
 export default App;//makes the function App available to any script that imports this file
