@@ -31,6 +31,7 @@ import React,{ useState, useEffect } from 'react';//makes React available to the
 import '../../node_modules/rbx/index.css';
 import{ Button, Container,Title } from 'rbx';
 
+/*
 const schedule = {
   "title": "CS Courses for 2018-2019",
   "courses": [
@@ -56,6 +57,7 @@ const schedule = {
     }
   ]
 };
+*/
 
 const terms = { F: 'Fall', W: 'Winter', S:'Spring'};
 
