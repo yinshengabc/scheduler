@@ -31,7 +31,10 @@ import React,{ useState, useEffect } from 'react';//makes React available to the
 import '../../node_modules/rbx/index.css';
 import{ Button, Container,Title } from 'rbx';
 import firebase from '../../node_modules/firebase/app';
-import '../../node_modules/database';
+import '../node_modules/firebase/database';
+import '../../node_modules/firebase/auth';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebabseAuth';
+
 
 /*
 const schedule = {
@@ -77,8 +80,29 @@ const db = firebase.database().ref();
 
 const terms = { F: 'Fall', W: 'Winter', S:'Spring'};
 
-const Banner = ({title}) => (
-  <Title>{title || '[loading...]'}</Title>
+const Banner = ({ user, title }) => (
+  <React.Fragment>
+    { user ? <Welcome user={ user } /> : <SignIn /> }
+    <Title>{ title || '[loading...]' }</Title>
+  </React.Fragment>
+);
+
+const Welcome = ({ user }) => (
+  <Message color="info">
+    <Message.Header>
+      Welcome, {user.displayName}
+      <Button primary onClick={() => firebase.auth().signOut()}>
+        Log out
+      </Button>
+    </Message.Header>
+  </Message>
+);
+
+const SignIn = () => (
+  <StyledFirebaseAuth
+    uiConfig={uiConfig}
+    firebaseAuth={firebase.auth()}
+  />
 );
 
 const getCourseTerm = course => (
@@ -127,7 +151,7 @@ const timeParts = meets => {
 };
 
 const addCourseTimes = course => ({
-  title: shedule.title,
+  title: schedule.title,
   courses: Object.values(schedule.courses).map(addCourseTimes)
 });
 
@@ -139,7 +163,7 @@ const addScheduleTimes = schedule => ({
 const Course = ({course, state}) => (
   <Button color = {buttonColor(state.selected.includes(course))}
     onClick = { () => state.toggle(course)}
-    onDoubleClick={()=> state.toggle(course)}
+    onDoubleClick={ user ? () => moveCourse(course) : null }
     disabled = { hasConflict(course,state.selected)}
     >
     { getCourseTerm(course)} CS { getCourseNumber(course)}: {course.title}
@@ -156,7 +180,8 @@ const CourseList = ({ courses }) => {
     <React.Fragment> 
       <TermSelector state = {{ term, setTerm }} />
       <Button.Group>
-      { termCourses.map(course => <Course key={ course.id } course={ course } state ={{selected, toggle}}/>)} 
+      { termCourses.map(course => <Course key={ course.id } course={ course } state ={{selected, toggle}} 
+                                  user = { user }/>)} 
       </Button.Group>
     </React.Fragment>
     );
@@ -201,8 +226,19 @@ const saveCourse = (course,meets) => {
     .catch(error  => alert(error));
 };
 
+const uiConfig = {
+  signInFlow:'popup',
+  signInOptions:[
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID
+  ],
+  callbacks:{
+    signInSuccessWithAuthResult:() => false
+  }
+};
+
 const App = () =>  {
   const [schedule, setSchedule] = useState({title:'', courses:[]});
+  const [user,setUser] = useState(null);
 
   useEffect(() => {
     const handleData = snap => {
@@ -211,6 +247,10 @@ const App = () =>  {
     db.on('value', handleData, error => alert(error));
     return () => { db.off('value', handleData); };
   },[]);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(setUser);
+  }, []);
 
   return(
     <Container>

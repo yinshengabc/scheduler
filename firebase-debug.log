@@ -1,0 +1,32 @@
+[debug] [2020-01-16T14:34:06.775Z] ----------------------------------------------------------------------
+[debug] [2020-01-16T14:34:06.777Z] Command:       E:\node.exe C:\Users\尹笙\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js list
+[debug] [2020-01-16T14:34:06.777Z] CLI Version:   7.12.0
+[debug] [2020-01-16T14:34:06.777Z] Platform:      win32
+[debug] [2020-01-16T14:34:06.777Z] Node Version:  v12.14.0
+[debug] [2020-01-16T14:34:06.779Z] Time:          Thu Jan 16 2020 08:34:06 GMT-0600 (GMT-06:00)
+[debug] [2020-01-16T14:34:06.779Z] ----------------------------------------------------------------------
+[debug] [2020-01-16T14:34:06.779Z] 
+[debug] [2020-01-16T14:34:06.785Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-01-16T14:34:06.785Z] > authorizing via signed-in user
+[warn] This command is deprecated. Instead, use 'firebase projects:list' command to list your projects.
+[debug] [2020-01-16T14:34:06.787Z] [WARNING] Error: getProjects() is deprecated - update the implementation
+    at Object.getProjects (C:\Users\尹笙\AppData\Roaming\npm\node_modules\firebase-tools\lib\api.js:186:35)
+    at Command.actionFn (C:\Users\尹笙\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\list.js:14:16)
+    at Command.<anonymous> (C:\Users\尹笙\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:157:25)
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\尹笙\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:4:58)
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+[debug] [2020-01-16T14:34:06.788Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-01-16T14:34:06.789Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-01-16T14:34:06.937Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-16T14:34:06.949Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects  
+ 
+[debug] [2020-01-16T14:34:07.210Z] Error: certificate has expired
+    at TLSSocket.onConnectSecure (_tls_wrap.js:1321:34)
+    at TLSSocket.emit (events.js:210:5)
+    at TLSSocket.EventEmitter.emit (domain.js:475:20)
+    at TLSSocket._finishInit (_tls_wrap.js:794:8)
+    at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:608:12)
+[error] 
+[error] Error: Server Error. certificate has expired
